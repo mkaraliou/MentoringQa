@@ -1,6 +1,5 @@
 ﻿using Core.Configuration;
 using Core.UI.Enums;
-using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using Serilog;
@@ -10,13 +9,18 @@ namespace Core.UI.Browser
 {
     public class BrowserFactory
     {
-        private static readonly Lazy<BrowserFactory> Lazy = new Lazy<BrowserFactory>(() => new BrowserFactory());
+        private static readonly Lazy<BrowserFactory> _lazy = new Lazy<BrowserFactory>(() => new BrowserFactory());
 
         private static string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         private static TestSettings TestConfiguration => ConfigurationHelper.GetApplicationConfiguration<TestSettings>();
 
-        public static BrowserFactory Instance => Lazy.Value;
+        public static BrowserFactory Instance => _lazy.Value;
+
+        private BrowserFactory()
+        {
+
+        }
 
         public IBrowser GetDriver()
         {

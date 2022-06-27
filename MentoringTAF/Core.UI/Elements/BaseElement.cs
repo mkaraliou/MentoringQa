@@ -11,7 +11,7 @@ namespace Core.UI.Elements
         private IWebElement _webElement;
         private int _counterForStaleException;
 
-        public IBrowser Driver => BrowserFactory.Instance.GetDriver();
+        public IBrowser Driver => BrowserPool.CurrentBrowser;
 
         public BaseElement(IWebElement webElement)
         {

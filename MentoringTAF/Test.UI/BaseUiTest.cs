@@ -1,31 +1,36 @@
 ﻿using Core;
 using Core.UI.Browser;
 using Microsoft.Extensions.Configuration;
-using NUnit.Framework;
+using PageObjects;
 using Serilog;
 using System.Reflection;
 
 namespace Test.UI
 {
     [TestFixture]
-    public class BaseUiTest : BaseTest
+    public abstract class BaseUiTest : BaseTest
     {
-        public IBrowser Driver;
+        public IBrowser Driver => BrowserPool.CurrentBrowser;
 
         [OneTimeSetUp]
         public void BaseUiInitialize()
         {
-            //Assembly loginPageAssembly = typeof(LoginPage).Assembly;
-            //TestCore.Container.RegisterTypes(loginPageAssembly);
+            Assembly loginPageAssembly = typeof(LoginPage).Assembly;
+            TestCore.Container.RegisterTypes(loginPageAssembly);
             Log.Logger.Information("Base UI initialize.");
-            Driver = BrowserFactory.Instance.GetDriver();
-            Driver.Navigate().GoToUrl(Configuration.GetValue<string>("TestSettings:BaseUrl"));
+
+            var driver = BrowserFactory.Instance.GetDriver();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
+
+            BrowserPool.RegisterAndMakeCurrentBrowser(TestContext.CurrentContext.Test.Name, driver);
+
+            Driver.Navigate().GoToUrl(TestConfiguration.BaseUrl);
         }
 
         [OneTimeTearDown]
         public void BaseUiCleanup()
         {
-            Driver.Quit();
+            BrowserPool.CloseBrowser(TestContext.CurrentContext.Test.Name);
             Log.Logger.Information("Browser is quited.");
         }
     }
