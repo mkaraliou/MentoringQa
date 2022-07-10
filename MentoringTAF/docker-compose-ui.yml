@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:  
+  tests.ui:
+    image: testsui:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Test.UI/Dockerfile
+    volumes: 
+      - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./test-results/}:/app/TestResults/
