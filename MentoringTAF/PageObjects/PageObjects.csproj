@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SpecRun.SpecFlow" Version="3.9.31" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Core.UI\Core.UI.csproj" />
   </ItemGroup>
 
