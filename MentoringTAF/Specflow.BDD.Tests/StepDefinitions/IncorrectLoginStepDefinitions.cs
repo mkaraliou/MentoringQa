@@ -17,6 +17,12 @@ namespace Specflow.BDD.Tests.StepDefinitions
             _loginPage = TestCore.Container.GetInstance<ILoginPage>();
         }
 
+        [AfterScenario]
+        public void AfterScenario()
+        {
+            Driver.Quit();
+        }
+
         [Given(@"I go to login page of Report Portal")]
         public void GivenIGoToLoginPageOfReportPortal()
         {
@@ -51,8 +57,5 @@ namespace Specflow.BDD.Tests.StepDefinitions
         {
             Assert.IsTrue(_loginPage.TextError.Enabled(), "Error message is incorrect.");
         }
-
-
-        
     }
 }
