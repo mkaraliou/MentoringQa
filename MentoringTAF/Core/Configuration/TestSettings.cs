@@ -8,6 +8,10 @@
 
         public string Password { get; set; }
 
+        public string AccessToken { get; set; }
+
+        public string BaseApiUrl { get; set; }
+
         public string BrowserType { get; set; }
 
         public int DefaultTimeOutMs { get; set; }

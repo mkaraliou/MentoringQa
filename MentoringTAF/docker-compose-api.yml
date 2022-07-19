@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:  
+  tests.api:
+    image: testsapi:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Tests.API/Dockerfile
+    volumes: 
+      - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./test-results/}:/app/TestResults/
