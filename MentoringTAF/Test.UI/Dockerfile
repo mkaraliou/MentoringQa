@@ -5,14 +5,11 @@ FROM build-stage AS build
 COPY . .
 
 # Build the project
-RUN dotnet restore
-RUN dotnet build -c Release -o /app/build
-RUN dotnet publish -c Release -o /app/publish
-
+RUN dotnet restore 
+RUN dotnet publish -c Release -o /app
 #-----------------------------------------------------------------------------
 
 FROM build-stage as final
 WORKDIR /app
-COPY --from=build /app/build .
+COPY --from=build /app .
 CMD dotnet test Test.UI.dll --logger:trx;
-CMD sleep 300

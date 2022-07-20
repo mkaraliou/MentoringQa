@@ -7,4 +7,14 @@ services:
       context: .
       dockerfile: Test.UI/Dockerfile
     volumes: 
-      - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./test-results/}:/app/TestResults/
+      - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./test-results-ui/}:/app/TestResults/
+    networks:
+      - my-proxy-net
+    environment:
+      - TestSettings__GridUrl=http://selenium-hub:4444/wd/hub
+      - TestSettings__Browser=RemoteChrome
+   
+networks:
+  my-proxy-net:
+    name: custom_network
+    external: true

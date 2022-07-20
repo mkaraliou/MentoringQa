@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:  
+  selenium-hub:
+    image: selenium/hub:4.3.0-20220706
+    container_name: selenium-hub
+    networks:
+      - my-proxy-net
+    ports:
+      - "4444:4444"  
+    environment:
+      - GRID_TIMEOUT=30000
+      - GRID_BROWSER_TIMEOUT=30000
+      - GRID_MAX_SESSION=20      
+      - GRID_NEW_SESSION_WAIT_TIMEOUT=30000
+      - GRID_DEBUG=true
+      - GRID_CLEAN_UP_CYCLE=20000 
+  chrome:
+    image: selenium/node-chrome:4.3.0-20220706
+    networks:
+      - my-proxy-net
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - HUB_PORT_4444_TCP_ADDR=selenium-hub
+      - HUB_PORT_4444_TCP_PORT=4444
+      - NODE_MAX_INSTANCES=5
+      - NODE_MAX_SESSION=5
+    ports:
+      - 5900:5900
+    depends_on:
+      - selenium-hub
+    # volumes:
+    #  - /dev/shm:/dev/shm
+networks:
+  my-proxy-net:
+    name: custom_network
+    external: true
+    
