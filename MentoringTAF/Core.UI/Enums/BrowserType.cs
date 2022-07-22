@@ -3,6 +3,8 @@
     public enum BrowserType
     {
         Chrome,
-        RemoteChrome
+        RemoteChrome,
+        SauseLabs_Firefox,
+        SauseLabs_Chrome
     }
 }

@@ -14,7 +14,7 @@ namespace Test.UI
         }
 
         [Test]
-        public void Test()
+        public void CorrectLoginTest()
         {
             _loginPage.Login.EnterText(TestConfiguration.Login);
             _loginPage.Password.EnterText(TestConfiguration.Password);

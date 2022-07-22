@@ -1,6 +1,8 @@
 ﻿using Core.Configuration;
 using Core.UI.Enums;
+using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using Serilog;
 using System.Reflection;
@@ -64,6 +66,8 @@ namespace Core.UI.Browser
                     return InitializeRemoteChromeDriver();
                 case BrowserType.Chrome:
                     return InitializeChromeDriver();
+                case BrowserType.SauseLabs_Firefox:
+                    return InitializeSauceLabsFirefox();
                 default:
                     throw new Exception($"Unknown browser: {browser}");
             }
@@ -115,6 +119,23 @@ namespace Core.UI.Browser
                 Log.Logger.Error(e, e.Message);
                 throw;
             }
+        }
+
+        private IBrowser InitializeSauceLabsFirefox()
+        {
+            var browserOptions = new FirefoxOptions();
+            browserOptions.PlatformName = "Windows 10";
+            browserOptions.BrowserVersion = "latest";
+            browserOptions.AddAdditionalOption("username", "MKaraliou");
+            browserOptions.AddAdditionalOption("accessKey", "df310b2a-bda9-446f-b5a0-2a42289e7d61");
+            var sauceOptions = new Dictionary<string, object>();
+            sauceOptions.Add("name", TestContext.CurrentContext.Test.MethodName);
+            sauceOptions.Add("screenResolution", "1024x768");
+            browserOptions.AddAdditionalOption("sauce:options", sauceOptions);
+
+            var uri = new Uri("https://MKaraliou:df310b2a-bda9-446f-b5a0-2a42289e7d61@ondemand.us-west-1.saucelabs.com:443/wd/hub");
+            var driver = new RemoteWebDriver(uri, browserOptions);
+            return new Browser(driver);
         }
     }
 }
