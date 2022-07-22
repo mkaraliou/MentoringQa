@@ -2,10 +2,12 @@
 using Core.Api.ServiceHelpers;
 using Core.Api.Services;
 using Core.Configuration;
+using Serilog;
+using Xunit;
 
 namespace XUnit.Tests.Api
 {
-    public class BaseApiTest_XUnit
+    public class BaseApiTest_XUnit : IDisposable
     {
         protected SessionManager SessionManager { get; private set; }
 
@@ -17,9 +19,16 @@ namespace XUnit.Tests.Api
 
         public BaseApiTest_XUnit()
         {
+            Log.Logger.Information("Setup BaseApiTest_XUnit");
+
             SessionManager = new Lazy<SessionManager>(() => new SessionManager(TestConfiguration)).Value;
             DashboardServiceHelper = new Lazy<DashboardServiceHelper>(() => new DashboardServiceHelper(SessionManager)).Value;
             DashboardService = new Lazy<DashboardService>(() => new DashboardService(SessionManager)).Value;
+        }
+
+        public void Dispose()
+        {
+            Log.Logger.Information("OneTimeTearDown BaseApiTest_XUnit");
         }
     }
 }
