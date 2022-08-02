@@ -12,7 +12,7 @@ namespace Test.UI
     {
         public IBrowser Driver => BrowserPool.CurrentBrowser;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void BaseUiInitialize()
         {
             Assembly loginPageAssembly = typeof(LoginPage).Assembly;
@@ -27,7 +27,7 @@ namespace Test.UI
             Driver.Navigate().GoToUrl(TestConfiguration.BaseUrl);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void BaseUiCleanup()
         {
             BrowserPool.CloseBrowser(TestContext.CurrentContext.Test.Name);

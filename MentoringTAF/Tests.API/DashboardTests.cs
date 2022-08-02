@@ -1,9 +1,11 @@
 ﻿using Models.ResponseModels;
 using Newtonsoft.Json;
+using Serilog;
 using Tests.API.Helpers;
 
 namespace Tests.API
 {
+    [Parallelizable]
     [TestFixture]
     public class DashboardTests : BaseApiTest
     {
@@ -14,8 +16,9 @@ namespace Tests.API
         private string _id;
 
         [SetUp]
-        public void OneTimeSetUp()
+        public void SetUp()
         {
+            Log.Logger.Information("SetUp DashboardTests");
             var name = Faker.Name.First();
             var dashboardModel = CreateDataHelper.CreateRandomDashboardModel(name);
 
@@ -28,8 +31,9 @@ namespace Tests.API
         }
 
         [TearDown]
-        public void OneTimeTearDown()
+        public void TearDown()
         {
+            Log.Logger.Information("TearDown DashboardTests");
             foreach (var id in _ids)
             {
                 DashboardServiceHelper.DeleteDashboardById(id);
@@ -39,6 +43,8 @@ namespace Tests.API
         [Test]
         public void GetDashboard()
         {
+            Log.Logger.Information("GetDashboard start");
+
             var dashboard = DashboardServiceHelper.GetById(_id);
 
             Assert.IsNotNull(dashboard, "Dashboard should be found.");
@@ -47,6 +53,8 @@ namespace Tests.API
         [Test]
         public void CreateDashboard()
         {
+            Log.Logger.Information("CreateDashboard start");
+
             var name = Faker.Name.First();
             var dashboardModel = CreateDataHelper.CreateRandomDashboardModel(name);
 
@@ -60,6 +68,8 @@ namespace Tests.API
         [Test]
         public void DeleteDashboard()
         {
+            Log.Logger.Information("DeleteDashboard start");
+
             var responseMessage = DashboardServiceHelper.DeleteDashboardById(_id);
 
             Assert.IsNotNull(responseMessage, "Message should be returned.");

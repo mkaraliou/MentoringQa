@@ -1,0 +1,14 @@
+
+2022-08-02 18:22:50.064 +03:00 [INF] BaseTest initialize.
+2022-08-02 18:22:50.086 +03:00 [INF] Setup BaseApiTest_XUnit
+2022-08-02 18:22:50.094 +03:00 [INF] Setup DashboardTests
+2022-08-02 18:22:50.388 +03:00 [INF] Start GetDashboard_XUnit
+2022-08-02 18:22:50.511 +03:00 [INF] TearDown DashboardTests
+2022-08-02 18:22:50.639 +03:00 [INF] Setup BaseApiTest_XUnit
+2022-08-02 18:22:50.640 +03:00 [INF] Setup DashboardTests
+2022-08-02 18:22:50.782 +03:00 [INF] Start DeleteDashboard
+2022-08-02 18:22:51.029 +03:00 [INF] TearDown DashboardTests
+2022-08-02 18:22:51.145 +03:00 [INF] Setup BaseApiTest_XUnit
+2022-08-02 18:22:51.147 +03:00 [INF] Setup DashboardTests
+2022-08-02 18:22:51.294 +03:00 [INF] Start CreateDashboard
+2022-08-02 18:22:51.443 +03:00 [INF] TearDown DashboardTests

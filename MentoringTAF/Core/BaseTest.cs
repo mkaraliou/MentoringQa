@@ -4,12 +4,20 @@ using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Serilog;
 using System.Reflection;
+using Xunit;
 
 namespace Core
 {
     [TestFixture]
-    public abstract class BaseTest
+    public class BaseTest //: IClassFixture<BaseTest>
     {
+        public BaseTest()
+        {
+            BaseTestInitialize();
+            Log.Logger.Information("BaseTest initialize.");
+
+        }
+
         public TestCore TestCore { get; set; }
 
         public IConfiguration Configuration { get; set; }
@@ -24,7 +32,8 @@ namespace Core
             Configuration = ConfigurationHelper.GetConfigurationRoot();
 
             Log.Logger = new LoggerConfiguration()
-               .ReadFrom.Configuration(Configuration.GetSection("Serilog"))
+                .WriteTo.File("C:\\Users\\Mikalai_Karaliou\\Work\\MentoringQa\\MentoringTAF\\logs\\log.txt")
+               //.ReadFrom.Configuration(Configuration.GetSection("Serilog"))
                .CreateLogger();
 
             TestCore = new TestCore();
@@ -32,7 +41,7 @@ namespace Core
 
             Waiter = TestCore.Container.GetInstance<ITimeoutWaiter>();
 
-            Log.Logger.Information("Base initialize.");
+            //Log.Logger.Information("OneTimeSetUp BaseTest initialize.");
         }
     }
 }

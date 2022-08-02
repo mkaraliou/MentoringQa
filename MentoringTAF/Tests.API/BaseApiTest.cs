@@ -2,6 +2,7 @@
 using Core.Api;
 using Core.Api.ServiceHelpers;
 using Core.Api.Services;
+using Serilog;
 
 namespace Tests.API
 {
@@ -16,6 +17,7 @@ namespace Tests.API
         [SetUp]
         public void SettingServiceHelpers()
         {
+            Log.Logger.Information("SetUp BaseApi");
             SessionManager = new Lazy<SessionManager>(() => new SessionManager(TestConfiguration)).Value;
             DashboardServiceHelper = new Lazy<DashboardServiceHelper>(() => new DashboardServiceHelper(SessionManager)).Value;
             DashboardService = new Lazy<DashboardService>(() => new DashboardService(SessionManager)).Value;

@@ -5,7 +5,7 @@ using Tests.API.Helpers;
 
 namespace XUnit.Tests.Api
 {
-    public class DashboardTests : BaseApiTest_XUnit, IDisposable, IClassFixture<BaseApiTest_XUnit>
+    public class DashboardTests : BaseApiTest_XUnit, IDisposable
     {
         private const string ErrorMessage = "Dashboard with ID '{0}' not found on project";
         private const string DeletingMessage = "Dashboard with ID = '{0}' successfully deleted.";

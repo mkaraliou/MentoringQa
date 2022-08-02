@@ -7,5 +7,7 @@ namespace Core.UI.Elements.Interfaces
         IWebElement WebElement { get; }
         void ManualClearField();
         bool Enabled();
+
+        string Text { get; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Core.Api;
+﻿using Core;
+using Core.Api;
 using Core.Api.ServiceHelpers;
 using Core.Api.Services;
 using Core.Configuration;
@@ -7,7 +8,7 @@ using Xunit;
 
 namespace XUnit.Tests.Api
 {
-    public class BaseApiTest_XUnit : IDisposable
+    public class BaseApiTest_XUnit : IDisposable, IClassFixture<BaseTest>
     {
         protected SessionManager SessionManager { get; private set; }
 

@@ -79,6 +79,8 @@ namespace Core.UI.Elements
             return WebElement.Enabled;
         }
 
+        public string Text => WebElement.Text;
+
         private IWebElement GetElementAndVerifyNotStale()
         {
             var element = _webElement ?? Driver.FindElement(_elementLocator);
